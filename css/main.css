@@ -2,3 +2,6 @@
 	cursor:pointer;
 	/* this makes the card look clickable */
 }
+#instructions {
+	text-align:center;
+}
