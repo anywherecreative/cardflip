@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<!-- 
+<!--
 	This is the DOCTYPE it's the same for all HTML5 documents.
-	It tells the browser that you want to speak in HTML and 
-	also says that you are using the latest versoin called 
-	HTML 5! 
+	It tells the browser that you want to speak in HTML and
+	also says that you are using the latest versoin called
+	HTML 5!
 -->
 <html lang="en">
 	<!--
-		html is the root element of the document, it comes 
+		html is the root element of the document, it comes
 		from the roots of where HTML came from called SGML.
-		
+
 		we've included a special attribute called lang, the lang attribute
 		is short for language and tells the browser what language our page is
 		written in.  In this case we are using english and so we put en if for
-		example your page was written in french you might put lang="fr" 
+		example your page was written in french you might put lang="fr"
 	-->
 	<head>
 		<!--
 			everything inside here is invisible to the user.  We use
-			this section to bring in files, and styles as well as 
-			provide information about our document! 
+			this section to bring in files, and styles as well as
+			provide information about our document!
 		-->
 		<title>Flipping a card with jQuery!</title>
 		<!--
@@ -28,34 +28,34 @@
 			Try loading this page and pressing ctrl+B to see it in action
 		-->
 		<link rel="stylesheet" href="css/main.css" />
-		<!-- 
+		<!--
 			I've used something called a link to include my CSS stylesheet
-			in my document.  CSS can be embedded however it is best 
-			practice to keep it seperate like we have done here! 
+			in my document.  CSS can be embedded however it is best
+			practice to keep it seperate like we have done here!
 		-->
 		<meta charset="UTF-8" />
-		<!-- 
-			The above code is called a meta tag.  A meta tag is a type of tag 
-			that passes special information about our page to the browser. 
-			in this case we are passing what's called a charset.  
-			
-			A charset is just a fancy word for the letters, numbers, and symbols 
+		<!--
+			The above code is called a meta tag.  A meta tag is a type of tag
+			that passes special information about our page to the browser.
+			in this case we are passing what's called a charset.
+
+			A charset is just a fancy word for the letters, numbers, and symbols
 			your webpage contains.  99.9% of the time you can use UTF-8 and can
-			simply copy and paste the above code exactly.  You may need to use a 
-			different charset if you are going to write your webpage using a 
-			a different langugage (not to be confused with programming language) 
-			such as in Japanese or Chinese which use special characters. 
+			simply copy and paste the above code exactly.  You may need to use a
+			different charset if you are going to write your webpage using a
+			a different langugage (not to be confused with programming language)
+			such as in Japanese or Chinese which use special characters.
 		-->
 	</head>
 	<body>
 		<h1>Memory Game</h1>
 		<p id="instructions">Select a card by clicking on it!</p>
-		<!-- 
+		<!--
 			You'll notice above that I have assigned an id attribute to my paragraph.
-			id's are used as a unique identifier for an element and can only be used 
+			id's are used as a unique identifier for an element and can only be used
 			once on a page.
 		-->
-			
+
 		<div id="field">
 			<img src="images/back.png" alt="Card Back" class="card" />
 			<!--
@@ -63,13 +63,21 @@
 				of times! We use them when we want to target more then one item at a time!
 			-->
 			<img src="images/back.png" alt="Card Back" class="card" />
+			<img src="images/back.png" alt="Card Back" class="card" />
+			<img src="images/back.png" alt="Card Back" class="card" />
+			<img src="images/back.png" alt="Card Back" class="card" />
+			<img src="images/back.png" alt="Card Back" class="card" />
+			<img src="images/back.png" alt="Card Back" class="card" />
+			<img src="images/back.png" alt="Card Back" class="card" />
+			<img src="images/back.png" alt="Card Back" class="card" />
+			<img src="images/back.png" alt="Card Back" class="card" />
 		</div>
-		<!-- 
+		<!--
 			You'll notice I have added my Javascript files at the bottom.
-			The reason for this is performance.  When you load a website all of 
+			The reason for this is performance.  When you load a website all of
 			the files associated with it (images, and code) have to be downloaded also
-			the browser downloads these in the order they appear, so we keep our 
-			Javascript at the bottom and use a technique called progressive 
+			the browser downloads these in the order they appear, so we keep our
+			Javascript at the bottom and use a technique called progressive
 			enhancement to make the user experience better!
 		-->
 		<script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
