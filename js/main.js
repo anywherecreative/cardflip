@@ -254,6 +254,50 @@ $(document).ready(function() {
 				here we have our data function again, only this time we are saying true as in our
 				card is infact flipped over.
 			*/
+
+			/*
+				we're going to count how many cards are flipped over.  We are only
+				allowed to have two and after the second one is flipped we need to
+				do some checking.
+
+				For now we're just going to see if two are flipped, and if they are we
+				will flip them back over.
+			*/
+			var numFlipped = $('.card').filter(function() {
+					return $(this).data('flipped');
+			}).length;
+			/*
+				this is a bit strange at first but i'll walk through it with you.
+				basically we are asking for all the cards (the $('.card') part) and
+				we're filtering that result based on a function that quickly checks
+				if the card is flipped.  If it is then the card is added to our selector.
+
+				the last part of the code is .length this just asks for the number of
+				elements (cards) that have been selected.  we then assign the result to
+				our numFlipped variable.
+			*/
+			if(numFlipped == 2) {
+				//if exactly two cards are flipped
+				alert('two cards flipped over');
+				/*
+					the above code is an alert, and it's use is to show a dialog box to a
+					user that they must press ok to before continuing
+
+					We'll be using this a bit more next week, but for now it shows how the
+					game can work.
+				*/
+				
+				/*
+					we will be doing some additional work in here to see if they match
+					but we can cover that next week!  If you want to see if you can figure
+					out how we might do that!
+				*/
+
+				//turn all our cards back over
+				$('.card').data('flipped',false);
+				$('.card').attr('src','images/back.png');
+			}
+
 		}
 	});
 });
