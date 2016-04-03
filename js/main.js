@@ -1,3 +1,8 @@
+'use strict';
+/*
+this forces javascript to use a stricter set of rules
+this is good to make sure you haven't made any sloppy errors
+*/
 $(document).ready(function() {
 	/*
 		this basically asks the browser to wait until the page is fully loaded
@@ -5,18 +10,30 @@ $(document).ready(function() {
 		if the browser hasn't rendered our code yet then the things we are scripting
 		such as images may not be there yet!
 	*/
+	/**
+	 * This is called localstorage and is a new feature of HTML.
+	 * it lets us save data right in the users browser and access it later
+	 * even if they close the browser.  We are using this functionality to
+	 * save the users score.
+	**/
+
+	//we need to check if the user has a score already if they never played
+	//then they won't have a score
+	var score;
+	if(localStorage.getItem("score") != null) {
+		//if they have a score, save it to the score variable
+    score = localStorage.getItem("score");
+  }
+	else {
+		//if the user never played they don't have a score so we set it to zero.
+		score = 0;
+	}
+	$('.score').text(score);
 	/*
 		we're using a technique called prefetching to download our image before
 		the user needs it, this way it doesn't need to be loaded when we flip
 		our card over!
 	*/
-	if(localStorage.getItem("score") != null) {
-    score = localStorage.getItem("score");
-		$('.score').text(score);
-  }
-	else {
-		score = 0;
-	}
 	var aceSpades = new Image();
 	aceSpades.src = 'images/ace-spades.png';
 	var twoSpades = new Image();
@@ -165,6 +182,11 @@ $(document).ready(function() {
 		like class="card" in the code.
 	*/
 	$('.card').click(function() {
+		/**
+			so we have added a line here that updates the instructions based on
+			what the user has done, in this case we default to no cards flipped.
+			we set this here in case the user unflips the first card.
+		**/
 		$("#instructions").text("Select a card by clicking on it!");
 		if($(this).data('flipped') == true) {
 			/*
@@ -287,9 +309,14 @@ $(document).ready(function() {
 				our numFlipped variable.
 			*/
 			if(numFlipped == 1) {
+				/**
+				 * once hte user has flipped one card over we update the text to tell
+				 * them what to do next.
+				**/
 				$("#instructions").text("Now choose One More Card");
 			}
 			if(numFlipped == 2) {
+				//two cards have been flipped so we default to the original instructions
 				$("#instructions").text("Select a card by clicking on it!");
 				//if exactly two cards are flipped
 				/**
@@ -313,16 +340,38 @@ $(document).ready(function() {
 
 					//first we are going to put a green box around them to show they are matching
 					flippedCards.addClass('match');
+					/**
+					 * we are using a new function here, called setTimeout.  This function lets us
+					 * put a delay on some code so it doesn't run right away.  We pass it a function,
+					 * and then we pass it an amount of time in miliseconds (1000 miliseconds to a second)
+
+					 * You'll notice we have used 600 miliseconds this number isn't random and is actually
+					 * the exact amount of time it takes for the CSS animation to complete
+					**/
 					setTimeout(function() {
+						//the remove function removes the selected elements (in our case the two cards) from the DOM (field)
 						flippedCards.remove();
+						/**
+						 * this cehckWin() function is a function we wrote below, it checks to see if we won
+					   * (if there are any cards on the field) and if there aren't any adds on to score, and
+						 * asks if we want to start a new game.
+						 **/
 						checkWin();
 					},600);
 				}
 				else {
+					//the user didn't find matching cards in this case so we need to flip them back over
+
+					//this adds a class that shows a red box around the cards
 					flippedCards.addClass('fail');
+
+					//here's our timeout again, we've used the same amount of time for consistency.
 					setTimeout(function() {
+						//card needs to flip back over
 						$('.card').data('flipped',false);
 						$('.card').attr('src','images/back.png');
+
+						//we need to remove our outline
 						$('.card').removeClass('fail');
 					},600);
 				}
@@ -375,12 +424,32 @@ function shuffle(array) {
   return array;
 }
 
+/**
+ * this function checks if there are any cards left on the field.
+ * if there aren't then the score is incremented, the score is
+ * saved and then the user is asked if they want to play again.
+ * if they do then we reset the page to start a game again.
+**/
 function  checkWin() {
+	//are there any cards left in the dom
 	if($('.card').length == 0) {
-		score++;
-		localStorage.setItem("score", score);
-		$('.score').text(score);
+		score++; //add one to the score
+		localStorage.setItem("score", score); //save our new score to the dom
+		$('.score').text(score); //update the score on the field
+		//ask the user if they want to play again
+		/**
+		 * the function confirm is a lot like our alert dialog box we used before
+		 * it shows a box with the text you give it, but instead of just showing
+		 * ok, it shows ok and cancel.  Then it returns true if the user presses
+		 * ok and false if the user presses cancel.
+		**/
+
+		/**
+		 * We can pass the result of the confirm box right to our if statement
+		 * and javascript will understand what you're trying to do.
+		**/
 		if(confirm('YAY!! you won! Play again?')) {
+			//if they do, reload the page.
 			location.reload();
 		}
 	}

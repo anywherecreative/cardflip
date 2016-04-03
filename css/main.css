@@ -5,17 +5,33 @@
 #instructions {
 	text-align:center;
 }
+/*
+	this is a cool feature of css that lets us make animations without using
+	javascript.  I have defined the keyframe below to make a border that
+	toggles between dark and light green
+*/
 @keyframes pulse {
     from {border-color:#040;}
     to {border-color:#0f0;}
 }
 
 .match {
+	/*
+		here we are using the animation we defined above we are making the duration
+		.1s (or 100 miliseconds) and ask it to repeat 6 times.  if you look in
+		our javascript you'll see that we have a 600 milisecond delay.
+		This number came from the timing we defined here.
+	*/
 	animation-name:pulse;
 	animation-duration:.1s;
 	animation-iteration-count: 6;
 	border:4px #040 solid;
 }
+
+/**
+	here we apply a four pixle border in red when the user chooses two cards
+	that don't match.
+**/
 .fail {
 	border:4px #c00 solid;
 }
