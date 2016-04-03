@@ -3,6 +3,7 @@
 this forces javascript to use a stricter set of rules
 this is good to make sure you haven't made any sloppy errors
 */
+var score;
 $(document).ready(function() {
 	/*
 		this basically asks the browser to wait until the page is fully loaded
@@ -19,7 +20,6 @@ $(document).ready(function() {
 
 	//we need to check if the user has a score already if they never played
 	//then they won't have a score
-	var score;
 	if(localStorage.getItem("score") != null) {
 		//if they have a score, save it to the score variable
     score = localStorage.getItem("score");
