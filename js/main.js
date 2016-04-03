@@ -20,7 +20,8 @@ $(document).ready(function() {
 	fourSpades.src = 'images/four-spades.png';
 	var fiveSpades = new Image();
 	fiveSpades.src = 'images/four-spades.png';
-
+	var sixSpades = new Image();
+	fiveSpades.src = 'images/six-spades.png';
 
 	/*
 		I'm going to introduce you to a new concept in Javascript called an array.
@@ -96,7 +97,8 @@ $(document).ready(function() {
 	cards[7] = "images/four-spades.png";
 	cards[8] = "images/five-spades.png";
 	cards[9] = "images/five-spades.png";
-
+	cards[10] = "images/six-spades.png";
+	cards[11] = "images/six-spades.png";
 	/*
 		now that we have all our cards added we're going to use a function to
 		randomize them in the array!  kind of like shuffling actual cards.
@@ -156,7 +158,6 @@ $(document).ready(function() {
 		like class="card" in the code.
 	*/
 	$('.card').click(function() {
-
 		if($(this).data('flipped') == true) {
 			/*
 				so we're doing a few new things here, so I'll go through each piece
@@ -259,13 +260,14 @@ $(document).ready(function() {
 				we're going to count how many cards are flipped over.  We are only
 				allowed to have two and after the second one is flipped we need to
 				do some checking.
-
-				For now we're just going to see if two are flipped, and if they are we
-				will flip them back over.
 			*/
-			var numFlipped = $('.card').filter(function() {
-					return $(this).data('flipped');
-			}).length;
+
+			//we'll use the variable to hold the flipped cards so we don't
+			//have to type this agian.
+			var flippedCards = $('.card').filter(function() {
+					return $(this).data('flipped'); //if it's flipped over
+			});
+			var numFlipped = flippedCards.length;
 			/*
 				this is a bit strange at first but i'll walk through it with you.
 				basically we are asking for all the cards (the $('.card') part) and
@@ -278,7 +280,36 @@ $(document).ready(function() {
 			*/
 			if(numFlipped == 2) {
 				//if exactly two cards are flipped
-				alert('two cards flipped over');
+				/**
+				 * Here we are asking for all the flipped over cards, and we're going
+				 * go through them one by one and compare to eachother.
+				*/
+				var lastCard = ""; //a container to hold the value from the last card.
+				var match = false; //will hold whether the cards match or not.
+				flippedCards.each(function(index) {
+					if(index == 0) {
+						lastCard = $(this).data('card');
+					}
+					else {
+						if(lastCard == $(this).data('card')) {
+							match = true;
+						}
+					}
+				});
+				if(match) {
+					//so we know the cards match now, so we can take them off the field
+
+					//first we are going to put a green box around them to show they are matching
+					flippedCards.addClass('match');
+					setTimeout(function() {
+						flippedCards.remove();
+					},600)
+				}
+				else {
+					alert('two cards flipped over');
+					$('.card').data('flipped',false);
+					$('.card').attr('src','images/back.png');
+				}
 				/*
 					the above code is an alert, and it's use is to show a dialog box to a
 					user that they must press ok to before continuing
@@ -286,7 +317,7 @@ $(document).ready(function() {
 					We'll be using this a bit more next week, but for now it shows how the
 					game can work.
 				*/
-				
+
 				/*
 					we will be doing some additional work in here to see if they match
 					but we can cover that next week!  If you want to see if you can figure
@@ -294,8 +325,6 @@ $(document).ready(function() {
 				*/
 
 				//turn all our cards back over
-				$('.card').data('flipped',false);
-				$('.card').attr('src','images/back.png');
 			}
 
 		}
