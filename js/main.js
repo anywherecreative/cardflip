@@ -316,12 +316,15 @@ $(document).ready(function() {
 					setTimeout(function() {
 						flippedCards.remove();
 						checkWin();
-					},600)
+					},600);
 				}
 				else {
-					alert('two cards flipped over');
-					$('.card').data('flipped',false);
-					$('.card').attr('src','images/back.png');
+					flippedCards.addClass('fail');
+					setTimeout(function() {
+						$('.card').data('flipped',false);
+						$('.card').attr('src','images/back.png');
+						$('.card').removeClass('fail');
+					},600);
 				}
 				/*
 					the above code is an alert, and it's use is to show a dialog box to a

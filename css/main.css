@@ -16,6 +16,9 @@
 	animation-iteration-count: 6;
 	border:4px #040 solid;
 }
+.fail {
+	border:4px #c00 solid;
+}
 #field > DIV {
 	height:150px;
 }
