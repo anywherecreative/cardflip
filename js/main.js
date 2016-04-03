@@ -10,6 +10,13 @@ $(document).ready(function() {
 		the user needs it, this way it doesn't need to be loaded when we flip
 		our card over!
 	*/
+	if(localStorage.getItem("score") != null) {
+    score = localStorage.getItem("score");
+		$('.score').text(score);
+  }
+	else {
+		score = 0;
+	}
 	var aceSpades = new Image();
 	aceSpades.src = 'images/ace-spades.png';
 	var twoSpades = new Image();
@@ -158,6 +165,7 @@ $(document).ready(function() {
 		like class="card" in the code.
 	*/
 	$('.card').click(function() {
+		$("#instructions").text("Select a card by clicking on it!");
 		if($(this).data('flipped') == true) {
 			/*
 				so we're doing a few new things here, so I'll go through each piece
@@ -278,7 +286,11 @@ $(document).ready(function() {
 				elements (cards) that have been selected.  we then assign the result to
 				our numFlipped variable.
 			*/
+			if(numFlipped == 1) {
+				$("#instructions").text("Now choose One More Card");
+			}
 			if(numFlipped == 2) {
+				$("#instructions").text("Select a card by clicking on it!");
 				//if exactly two cards are flipped
 				/**
 				 * Here we are asking for all the flipped over cards, and we're going
@@ -303,6 +315,7 @@ $(document).ready(function() {
 					flippedCards.addClass('match');
 					setTimeout(function() {
 						flippedCards.remove();
+						checkWin();
 					},600)
 				}
 				else {
@@ -326,7 +339,6 @@ $(document).ready(function() {
 
 				//turn all our cards back over
 			}
-
 		}
 	});
 });
@@ -358,4 +370,15 @@ function shuffle(array) {
   }
 
   return array;
+}
+
+function  checkWin() {
+	if($('.card').length == 0) {
+		score++;
+		localStorage.setItem("score", score);
+		$('.score').text(score);
+		if(confirm('YAY!! you won! Play again?')) {
+			location.reload();
+		}
+	}
 }
