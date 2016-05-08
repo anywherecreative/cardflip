@@ -310,32 +310,24 @@ $(document).ready(function() {
 			*/
 			if(numFlipped == 1) {
 				/**
-				 * once hte user has flipped one card over we update the text to tell
+				 * once the user has flipped one card over we update the text to tell
 				 * them what to do next.
 				**/
 				$("#instructions").text("Now choose One More Card");
 			}
 			if(numFlipped == 2) {
+				//if exactly two cards are flipped
 				//two cards have been flipped so we default to the original instructions
 				$("#instructions").text("Select a card by clicking on it!");
-				//if exactly two cards are flipped
-				/**
-				 * Here we are asking for all the flipped over cards, and we're going
-				 * go through them one by one and compare to eachother.
+				/*
+					we're going to use our filter function to compare the two cards together.
+					the :eq() function is a jquery operator that gets the element (our card) in the
+					position we asked for starting at zero, so this statement says
+
+					does the flipped card in position zero have the same data attribute value for card as the
+					card in position one.
 				*/
-				var lastCard = ""; //a container to hold the value from the last card.
-				var match = false; //will hold whether the cards match or not.
-				flippedCards.each(function(index) {
-					if(index == 0) {
-						lastCard = $(this).data('card');
-					}
-					else {
-						if(lastCard == $(this).data('card')) {
-							match = true;
-						}
-					}
-				});
-				if(match) {
+				if(flippedCards.filter(":eq(0)").data('card') == flippedCards.filter(":eq(1)").data('card')) {
 					//so we know the cards match now, so we can take them off the field
 
 					//first we are going to put a green box around them to show they are matching
@@ -375,21 +367,6 @@ $(document).ready(function() {
 						$('.card').removeClass('fail');
 					},600);
 				}
-				/*
-					the above code is an alert, and it's use is to show a dialog box to a
-					user that they must press ok to before continuing
-
-					We'll be using this a bit more next week, but for now it shows how the
-					game can work.
-				*/
-
-				/*
-					we will be doing some additional work in here to see if they match
-					but we can cover that next week!  If you want to see if you can figure
-					out how we might do that!
-				*/
-
-				//turn all our cards back over
 			}
 		}
 	});
